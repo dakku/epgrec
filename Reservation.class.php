@@ -267,16 +267,32 @@ class Reservation {
 			                     1 => array( "pipe", "w" ),
 			                     2 => array( "pipe", "w" ),
 			);
-			$env = array( "CHANNEL"  => $crec->channel,
-				          "DURATION" => $duration,
-				          "OUTPUT"   => INSTALL_PATH.$settings->spool."/".$filename,
-				          "TYPE"     => $crec->type,
-			              "TUNER"    => $tuner,
-			              "MODE"     => $mode,
-			              "THUMB"    => INSTALL_PATH.$settings->thumbs."/".$thumbname,
-			              "FORMER"   => "".$settings->former_time,
-			              "FFMPEG"   => "".$settings->ffmpeg,
-			);
+
+			if ($crec->type != "CS") {
+				$env = array( "CHANNEL"  => $crec->channel,
+					          "DURATION" => $duration,
+					          "OUTPUT"   => INSTALL_PATH.$settings->spool."/".$filename,
+					          "TYPE"     => $crec->type,
+				              "TUNER"    => $tuner,
+				              "MODE"     => $mode,
+				              "THUMB"    => INSTALL_PATH.$settings->thumbs."/".$thumbname,
+				              "FORMER"   => "".$settings->former_time,
+				              "FFMPEG"   => "".$settings->ffmpeg,
+				);
+			} else {
+				global $CS_DIVIDE_MAP;
+				$env = array( "CHANNEL"  => $crec->channel,
+					          "DURATION" => $duration,
+					          "OUTPUT"   => INSTALL_PATH.$settings->spool."/".$filename,
+					          "TYPE"     => $crec->type,
+					          "CS_CH"    => $CS_DIVIDE_MAP["$crec->channel_disc"],
+				              "TUNER"    => $tuner,
+				              "MODE"     => $mode,
+				              "THUMB"    => INSTALL_PATH.$settings->thumbs."/".$thumbname,
+				              "FORMER"   => "".$settings->former_time,
+				              "FFMPEG"   => "".$settings->ffmpeg,
+				);
+			}
 			
 			// ATで予約する
 			$process = proc_open( $cmdline , $descriptor, $pipes, INSTALL_PATH.$settings->spool, $env );
