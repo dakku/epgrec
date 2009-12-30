@@ -8,7 +8,6 @@ include_once( INSTALL_PATH . "/Keyword.class.php" );
 // include_once( INSTALL_PATH . "/Settings.class.php" );
 
 // 新規キーワードがポストされた
-
 if( isset($_POST["add_keyword"]) ) {
 	if( $_POST["add_keyword"] == 1 ) {
 		try {
@@ -18,9 +17,10 @@ if( isset($_POST["add_keyword"]) ) {
 			$rec->category_id = $_POST['k_category'];
 			$rec->channel_id = $_POST['k_station'];
 			$rec->use_regexp = $_POST['k_use_regexp'];
+			$rec->mode = $_POST['record_mode'];
 			
 			// 録画予約実行
-			$rec->reservation();
+			$rec->reservation($rec->mode);
 		}
 		catch( Exception $e ) {
 			exit( $e->getMessage() );
@@ -51,6 +51,7 @@ try {
 		else $arr['category'] = 'すべて';
 		
 		$arr['use_regexp'] = $rec->use_regexp;
+		$arr['mode'] = $RECORD_MODE[$rec->mode]['name'];
 		
 		array_push( $keywords, $arr );
 	}

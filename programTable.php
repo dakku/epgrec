@@ -150,6 +150,7 @@ try{
 	$smarty->assign( "stations", $stations );
 	$smarty->assign( "k_station", $station );
 	$smarty->assign( "k_station_name", $k_station_name );
+	$smarty->assign( "record_mode" , $RECORD_MODE );
 	$smarty->display("programTable.html");
 }
 catch( exception $e ) {

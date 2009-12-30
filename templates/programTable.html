@@ -141,6 +141,10 @@ table#reservation_table tr.prg_rec  {background-color: #F55;color:#FEE}
 #floatBox4Dialog .button {padding:0.4em 1em;}
 
 
+div.set {float:left;background-color:#444;padding:1px;margin:1px;}
+span.title {float:left;color:#ACF;}
+span a{background-color:#555;color:#FFF;}
+a:hover{background-color:#28D;}
 
 -->
 </style>
@@ -154,7 +158,16 @@ table#reservation_table tr.prg_rec  {background-color: #F55;color:#FEE}
 
 
 
-<div><a href="index.php">番組表に戻る</a>/<a href="keywordTable.php">自動録画キーワード管理へ</a></div>
+<div><a href="index.php">番組表に戻る</a>/<a href="keywordTable.php">自動録画キーワード管理へ</a><br>
+<div class="set">
+<span>番組検索</span>
+<span><a href="reservationTable.php">録画予約一覧</a></span>
+<span><a href="recordedTable.php">録画済一覧</a></span>
+</div>
+</div>
+<br>
+<br>
+
 
 <div>
 絞り込み：
@@ -230,6 +243,13 @@ table#reservation_table tr.prg_rec  {background-color: #F55;color:#FEE}
   <input type="hidden" name="k_type" value="{$k_type}" />
   <input type="hidden" name="k_category" value="{$k_category}" />
   <input type="hidden" name="k_station" value="{$k_station}" />
+<br>録画モード
+<select name="record_mode">
+	{section name=mode loop=$record_mode }
+	<option value="{$smarty.section.mode.index}">{$record_mode[mode].name}</option>
+	{/section}
+</select>
+
   <input type="submit" value="この絞り込みを自動録画キーワードに登録" />
   </form>
 </div>

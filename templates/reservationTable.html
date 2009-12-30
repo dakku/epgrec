@@ -107,6 +107,10 @@ table#reservation_table tr.ctg_10, #category_select a.ctg_10 {background-color: 
 #floatBox4Dialog .labelLeft {width:8em;float:left;text-align:right;}
 #floatBox4Dialog .button {padding:0.4em 1em;}
 
+div.set {float:left;background-color:#444;padding:1px;margin:1px;}
+span.title {float:left;color:#ACF;}
+span a{background-color:#555;color:#FFF;}
+a:hover{background-color:#28D;}
 
 -->
 </style>
@@ -118,7 +122,15 @@ table#reservation_table tr.ctg_10, #category_select a.ctg_10 {background-color: 
 
 <h2>{$sitetitle}</h2>
 
-<div><a href="index.php">番組表に戻る</a></div>
+<div><a href="index.php">番組表に戻る</a><br>
+<!--a href="programTable.php">番組検索</a>&nbsp;/&nbsp;<font color="red">録画予約一覧</font>&nbsp;/&nbsp;<a href="recordedTable.php">録画済一覧</a-->
+<div class="set">
+<span><a href="programTable.php">番組検索</a></span>
+<span>録画予約一覧</span>
+<span><a href="recordedTable.php">録画済一覧</a></span>
+</div><br><br>
+
+</div>
 
 {if count($reservations)}
 <table id="reservation_table">

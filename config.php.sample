@@ -256,6 +256,8 @@ define( "KEYWORD_STRUCT",
 	"type varchar(8) default '*',".							// 種別
 	"channel_id integer default '0',".						// channel ID
 	"category_id integer default '0',".						// カテゴリID
-	"use_regexp boolean default '0'"						// 正規表現を使用するなら1
+	"use_regexp boolean default '0',".						// 正規表現を使用するなら1
+	"mode integer default '0'"								// 録画モード
+//ALTER TABLE `Recorder_keywordTbl` ADD `mode` INT( 11 ) NOT NULL DEFAULT '0'
 );
 ?>
