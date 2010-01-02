@@ -10,8 +10,14 @@ $reserve_id = $argv[1];
 
 try{
 	$rrec = new DBRecord( RESERVE_TBL, "id" , $reserve_id );
+	if ($rrec->dir_id != 0) {
+		$dirinfo = new DBRecord( DIRINFO_TBL, "id" , $rrec->dir_id );
+		$path = INSTALL_PATH."/".$settings->spool."/".$dirinfo->dir_name."/".$rec->path;
+	} else {
+		$path = INSTALL_PATH .$settings->spool . "/". $rrec->path;
+	}
 	
-	if( file_exists( INSTALL_PATH .$settings->spool . "/". $rrec->path ) ) {
+	if( file_exists( $path ) ) {
 		// 予約完了
 		$rrec->complete = '1';
 		if( $settings->mediatomb_update == 1 ) {
