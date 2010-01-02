@@ -25,10 +25,10 @@ if(isset( $_POST['do_search'] )) {
 			$search = $_POST['search'];
 			if( isset($_POST['use_regexp']) && ($_POST['use_regexp']) ) {
 				$use_regexp = $_POST['use_regexp'];
-				$options .= " AND CONCAT(title,description) REGEXP '".mysql_real_escape_string($search)."'";
+				$options .= " AND CONCAT(title,':',description) REGEXP '".mysql_real_escape_string($search)."'";
 			}
 			else {
-				$options .= " AND CONCAT(title,description) like '%".mysql_real_escape_string($search)."%'";
+				$options .= " AND CONCAT(title,':',description) like '%".mysql_real_escape_string($search)."%'";
 			}
 		}
 	}

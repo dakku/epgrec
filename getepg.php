@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/local/bin/php
 <?php
   include_once('config.php');
   include_once( INSTALL_PATH . '/DBRecord.class.php' );
@@ -14,7 +14,7 @@
   // BSを処理する
   if( $settings->bs_tuners != 0 ) {
 	// 録画重複チェック
-	$num = DBRecord::countRecords(  RESERVE_TBL, "WHERE complete = '0' AND type = 'BS' AND endtime > now() AND starttime < addtime( now(), '00:03:05')" );
+	$num = DBRecord::countRecords(  RESERVE_TBL, "WHERE complete = '0' AND (type = 'BS' OR type = 'CS') AND endtime > now() AND starttime < addtime( now(), '00:03:05')" );
 	if( $num == 0 ) {
 	 	$cmdline = "CHANNEL=211 DURATION=180 TYPE=BS TUNER=0 MODE=0 OUTPUT=".$settings->temp_data." ".DO_RECORD . " >/dev/null 2>&1";
   		exec( $cmdline );

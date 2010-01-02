@@ -24,10 +24,10 @@ class Keyword extends DBRecord {
 		
 		if( $this->keyword != "" ) {
 			if( $this->use_regexp ) {
-				$options .= " AND CONCAT(title,description) REGEXP '".mysql_real_escape_string($this->keyword)."'";
+				$options .= " AND CONCAT(title,':',description) REGEXP '".mysql_real_escape_string($this->keyword)."'";
 			}
 			else {
-				$options .= " AND CONCAT(title,description) like '%".mysql_real_escape_string($this->keyword)."%'";
+				$options .= " AND CONCAT(title,':',description) like '%".mysql_real_escape_string($this->keyword)."%'";
 			}
 		}
 		

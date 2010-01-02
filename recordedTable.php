@@ -26,7 +26,7 @@ if(isset( $_POST['do_search'] )) {
 	if( isset($_POST['search'])){
 		if( $_POST['search'] != "" ) {
 			$search = $_POST['search'];
-			 $options .= " AND CONCAT(title,description) like '%".mysql_real_escape_string($_POST['search'])."%'";
+			 $options .= " AND CONCAT(title,':',description) like '%".mysql_real_escape_string($_POST['search'])."%'";
 		}
 	}
 	if( isset($_POST['category_id'])) {
