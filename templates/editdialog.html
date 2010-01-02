@@ -1,0 +1,22 @@
+<div class="prg_title">録画ID:{$reserve_id}</div>
+<form method="post" action="changeReservation.php">
+<input type="hidden" name="reserve_id" id="id_reserve_id" value="{$reserve_id}" />
+<div>
+<span class="labelLeft">タイトル</span>
+   <input type="text" size="40" name="title" id="id_title" value="{$title}" /></div>
+
+<div>
+<span class="labelLeft">概要</span>
+    <textarea name="description" id="id_description" rows="4" cols="40" >{$description}</textarea></div>
+
+<div>
+<span class="labelLeft">ディレクトリ</span>
+      <select name="dir_id" id="id_dir_id">
+	<option value="0" >ディレクトリ無し</option>
+      {foreach from=$dirs item=dir}
+        <option value="{$dir.id}" {$dir.selected}>{$dir.dir_name}</option>
+      {/foreach}
+      </select>
+</div>
+
+</form>

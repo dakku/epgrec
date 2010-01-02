@@ -26,6 +26,7 @@ if(!(
    isset($_POST['title'])       &&
    isset($_POST['description']) &&
    isset($_POST['category_id']) &&
+   isset($_POST['dir_id']) &&
    isset($_POST['record_mode']))
 ) {
 	exit("Error:予約に必要な値がセットされていません");

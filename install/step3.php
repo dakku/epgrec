@@ -40,6 +40,9 @@ try {
     
     $rec = new DBRecord( KEYWORD_TBL );
     $rec->createTable( KEYWORD_STRUCT );
+
+    $rec = new DBRecord( DIRINFO_TBL );
+    $rec->createTable( DIRINFO_STRUCT );
 }
 catch( Exception $e ) {
 	jdialog("テーブルの作成に失敗しました。データベースに権限がない等の理由が考えられます。", "step2.php" );

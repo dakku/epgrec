@@ -43,7 +43,17 @@
         <option value="{$cat.id}" {$cat.selected}>{$cat.name}</option>
       {/foreach}
       </select>
-    </div>
+</div>
+
+<div>
+<span class="labelLeft">ディレクトリ</span>
+      <select name="dir_id" id="id_dir_id">
+	<option value="0" >ディレクトリ無し</option>
+      {foreach from=$dirs item=dir}
+        <option value="{$dir.id}" {$dir.selected}>{$dir.dir_name}</option>
+      {/foreach}
+      </select>
+</div>
 
 <div>
 <span class="labelLeft">番組ID保持</span>

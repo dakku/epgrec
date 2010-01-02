@@ -279,7 +279,8 @@ define( "RESERVE_TBL",  "reserveTbl" );						// 予約テーブル
 define( "PROGRAM_TBL",  "programTbl" );						// 番組表
 define( "CHANNEL_TBL",  "channelTbl" );						// チャンネルテーブル
 define( "CATEGORY_TBL", "categoryTbl" );					// カテゴリテーブル
-define( "KEYWORD_TBL", "keywordTbl" );						// キーワードテーブル
+define( "KEYWORD_TBL",  "keywordTbl" );						// キーワードテーブル
+define( "DIRINFO_TBL",  "dirinfoTbl" );						// ディレクトリ管理テーブル
 
 // 予約テーブル
 define( "RESERVE_STRUCT", 
@@ -295,11 +296,19 @@ define( "RESERVE_STRUCT",
 	"starttime datetime default '1970-01-01 00:00:00',".	// 開始時刻
 	"endtime datetime default '1970-01-01 00:00:00',".		// 終了時刻
 	"job integer default '0',".								// job番号
+	"dir_id integer default '0',".							// ディレクトリID
 	"path blob default null,".								// 録画ファイルパス
 	"complete boolean default '0',".						// 完了フラグ
 	"reserve_disc varchar(128) default 'none',".			// 識別用hash
 	"autorec integer default '0',".							// キーワードID
-	"mode integer default '0'"								//録画モード
+	"mode integer default '0',".							// 録画モード
+	"KEY type (type),".
+	"KEY category_id (category_id),".
+	"KEY dir_id (dir_id),".
+	"KEY starttime (starttime),".
+	"KEY endtime (endtime),".
+	"KEY complete (complete),".
+	"KEY autorec (autorec)"
 );
 
 
@@ -316,26 +325,35 @@ define( "PROGRAM_STRUCT",
 	"starttime datetime default '1970-01-01 00:00:00',".	// 開始時刻
 	"endtime datetime default '1970-01-01 00:00:00',".		// 終了時刻
 	"program_disc char(128) default 'none',".	 			// 識別用hash
-	"autorec boolean default '1'"							// 自動録画有効無効
+	"autorec boolean default '1',".							// 自動録画有効無効
+	"KEY program_disc (program_disc),".
+	"KEY channel_disc (channel_disc),".
+	"KEY starttime (starttime),".
+	"KEY endtime (endtime)"
 );
 
 
+// チャンネルテーブル
 define( "CHANNEL_STRUCT",
 	"id integer not null auto_increment primary key,".		// ID
 	"type varchar(8) default 'GR',".						// 種別
 	"channel varchar(10) default '0',".						// channel
 	"name varchar(512) default 'none',".					// 表示名
-	"channel_disc varchar(128) default 'none'"				// 識別用hash
+	"channel_disc varchar(128) default 'none',".			// 識別用hash
+	"KEY channel (channel),".
+	"KEY channel_disc (channel_disc)"
 );
 
+// カテゴリテーブル
 define( "CATEGORY_STRUCT",
 	"id integer not null auto_increment primary key,".		// ID
 	"name_jp varchar(512) default 'none',".					// 表示名
 	"name_en varchar(512) default 'none',".					// 同上
-	"category_disc varchar(128) default 'none'"				// 識別用hash
+	"category_disc varchar(128) default 'none',".			// 識別用hash
+	"KEY category_disc (category_disc)"
 );
 
-
+// キーワードテーブル
 define( "KEYWORD_STRUCT",
 	"id integer not null auto_increment primary key,".		// ID
 	"keyword varchar(512) default '*',".					// 表示名
@@ -343,7 +361,16 @@ define( "KEYWORD_STRUCT",
 	"channel_id integer default '0',".						// channel ID
 	"category_id integer default '0',".						// カテゴリID
 	"use_regexp boolean default '0',".						// 正規表現を使用するなら1
+	"dir_id integer default '0',".							// ディレクトリID
 	"mode integer default '0'"								// 録画モード
 //ALTER TABLE `Recorder_keywordTbl` ADD `mode` INT( 11 ) NOT NULL DEFAULT '0'
+);
+
+// ディレクトリ管理テーブル
+define( "DIRINFO_STRUCT",
+	"id integer not null auto_increment primary key,".		// ID
+	"dir_name blob default null,".							// ディレクトリ名
+	"parent_id integer default '0',".						// 親のID 階層を表現するのに使用
+	"KEY parent_id (parent_id)"
 );
 ?>

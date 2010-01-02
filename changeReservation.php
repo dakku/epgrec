@@ -3,6 +3,7 @@ include_once('config.php');
 include_once(INSTALL_PATH."/DBRecord.class.php");
 include_once(INSTALL_PATH."/reclib.php");
 include_once(INSTALL_PATH."/Settings.class.php");
+include_once(INSTALL_PATH."/Dirinfo.class.php");
 
 $settings = Settings::factory();
 
@@ -43,6 +44,28 @@ try {
 			$sqlstr = "update mt_cds_object set metadata='".$desc."' where metadata regexp 'epgrec:id=".$reserve_id."$'";
 			@mysql_query( $sqlstr );
 		}
+	}
+
+	if( isset( $_POST['dir_id'] ) && $rec->dir_id != $_POST['dir_id']) {
+		$dir_base = INSTALL_PATH.$settings->spool;
+		if ($rec->dir_id != 0) {
+			$fromdirinfo = new Dirinfo("id", $rec->dir_id );
+			$fromdir = $dir_base."/".$fromdirinfo->dir_name;
+		} else {
+			$fromdir = $dir_base;
+		}
+
+		if ($_POST['dir_id'] != 0) {
+			$todirinfo = new Dirinfo("id", $_POST['dir_id'] );
+			$todir = $dir_base."/".$todirinfo->dir_name;
+		} else {
+			$todir = $dir_base;
+		}
+		$rec->dir_id = trim( $_POST['dir_id'] );
+
+		$cmd = sprintf("mv %s/%s %s/%s",$fromdir,$rec->path,$todir,$rec->path);
+printf("%s\n",$cmd);
+		`$cmd`;
 	}
 }
 catch( Exception $e ) {

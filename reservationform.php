@@ -23,6 +23,17 @@ try {
 	
 	array_push( $cats , $cat );
   }
+
+  $crecs = DBRecord::createRecords( DIRINFO_TBL );
+  $dirs = array();
+  foreach( $crecs as $crec ) {
+	$dir = array();
+	$dir['id'] = $crec->id;
+	$dir['dir_name'] = $crec->dir_name;
+//	$dir['selected'] = $crec->id == $dir['id'] ? "selected" : "";
+	
+	array_push( $dirs , $dir );
+  }
   
   $smarty = new Smarty();
   
@@ -46,12 +57,13 @@ try {
   $smarty->assign( "description", $prec->description );
   
   $smarty->assign( "cats" , $cats );
+  $smarty->assign( "dirs" , $dirs );
   
   $smarty->assign( "program_id", $prec->id );
   
   $smarty->display("reservationform.html");
 }
 catch( exception $e ) {
-	exit( "Error:". $e->getMessage() );
+	exit( "Error:". $e->getMessage()." => ".print_r($e->getTrace()) );
 }
 ?>

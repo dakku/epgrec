@@ -42,7 +42,8 @@ class Reservation {
 		$category_id = 0,		// カテゴリID
 		$program_id = 0,		// 番組ID
 		$autorec = 0,			// 自動録画
-		$mode = 0				// 録画モード
+		$mode = 0,				// 録画モード
+		$dir = 0				// ディレクトリ
 	) {
 		global $RECORD_MODE;
 		$settings = Settings::factory();
@@ -127,6 +128,7 @@ class Reservation {
 						$prev_endtime      = $trecs[$i]->endtime;
 						$prev_autorec      = $trecs[$i]->autorec;
 						$prev_mode         = $trecs[$i]->mode;
+						$prev_dir          = $trecs[$i]->dir_id;
 						
 						$prev_start_time = toTimestamp($prev_starttime);
 						// 始まっていない予約？
@@ -150,7 +152,8 @@ class Reservation {
 									$prev_category_id,			// カテゴリID
 									$prev_program_id,			// 番組ID
 									$prev_autorec,				// 自動録画
-									$prev_mode );
+									$prev_mode,
+									$prev_dir );
 							}
 							catch( Exception $e ) {
 								throw new Exception( "重複予約を解消できません" );
@@ -256,11 +259,19 @@ class Reservation {
 			$rrec->category_id = $category_id;
 			$rrec->starttime = toDatetime( $rec_start );
 			$rrec->endtime = toDatetime( $end_time );
+			$rrec->dir_id = $dir;
 			$rrec->path = $filename;
 			$rrec->autorec = $autorec;
 			$rrec->mode = $mode;
 			$rrec->reserve_disc = md5( $crec->channel_disc . toDatetime( $start_time ). toDatetime( $end_time ) );
 			
+
+			// ディレクトリ指定があった場合
+			if ($dir != 0) {
+				$dirinfo = new DBRecord( DIRINFO_TBL, "id", $dir );
+				$filename = sprintf("%s/%s",$dirinfo->dir_name,$filename);
+			}
+
 			// 予約実行
 			$cmdline = $settings->at." ".date("H:i m/d/Y", $at_start);
 			$descriptor = array( 0 => array( "pipe", "r" ),

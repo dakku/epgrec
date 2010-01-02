@@ -22,6 +22,10 @@ if(isset( $_GET['key']) ) {
 	$options .= " AND autorec ='".mysql_real_escape_string(trim($_GET['key']))."'";
 }
 
+if(isset( $_GET['dir']) ) {
+	$options .= " AND dir_id ='".mysql_real_escape_string(trim($_GET['dir']))."'";
+}
+
 if(isset( $_POST['do_search'] )) {
 	if( isset($_POST['search'])){
 		if( $_POST['search'] != "" ) {

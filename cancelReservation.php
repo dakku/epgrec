@@ -20,9 +20,15 @@ else if(isset($_GET['reserve_id'])) {
 		
 		if( isset( $_GET['delete_file'] ) ) {
 			if( $_GET['delete_file'] == 1 ) {
+				if ($rec->dir_id != 0) {
+					$dirinfo = new DBRecord( DIRINFO_TBL, "id" , $rec->dir_id );
+					$path = INSTALL_PATH."/".$settings->spool."/".$dirinfo->dir_name."/".$rec->path;
+				} else {
+					$path = INSTALL_PATH."/".$settings->spool."/".$rec->path;
+				}
 				// ファイルを削除
-				if( file_exists( INSTALL_PATH."/".$settings->spool."/".$rec->path ) ) {
-					@unlink(INSTALL_PATH."/".$settings->spool."/".$rec->path);
+				if( file_exists( $path ) ) {
+					@unlink($path);
 				}
 			}
 		}
