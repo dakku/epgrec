@@ -57,7 +57,7 @@ class Keyword extends DBRecord {
 	}
 	
 	
-	public function reservation() {
+	public function reservation($mode=0) {
 		if( $this->id == 0 ) return;
 		
 		$precs = array();
@@ -72,7 +72,7 @@ class Keyword extends DBRecord {
 			foreach( $precs as $rec ) {
 				try {
 					if( $rec->autorec ) {
-						Reservation::simple( $rec->id, $this->id );
+						Reservation::simple( $rec->id, $this->id ,$mode);
 						usleep( 100 );		// あんまり時間を空けないのもどう?
 					}
 				}

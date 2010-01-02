@@ -218,7 +218,11 @@ $last_time = $top_time + 3600 * $program_length;
  
  $smarty->assign("top_time", str_replace( "-", "/" ,toDatetime($top_time)) );
  $smarty->assign("last_time", str_replace( "-", "/" ,toDatetime($last_time)) );
- 
+
+ $dffile = INSTALL_PATH."/".$settings->spool;
+ $Available=`df $dffile -h|awk '{print $4}'`;
+ list($a,$b)=explode("\n",$Available);
+ $smarty->assign("df", $b);
  
  $smarty->display("index.html");
 ?>

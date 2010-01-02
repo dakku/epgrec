@@ -78,7 +78,7 @@
   $arr = Keyword::createKeywords();
   foreach( $arr as $val ) {
 	try {
-		$val->reservation();
+		$val->reservation($val->mode);
 	}
 	catch( Exception $e ) {
 		// 無視
