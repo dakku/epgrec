@@ -48,6 +48,7 @@ $title = $_POST['title'];
 $description = $_POST['description'];
 $category_id = $_POST['category_id'];
 $mode = $_POST['record_mode'];
+$dir_id = $_POST['dir_id'];
 
 
 $rval = 0;
@@ -61,7 +62,8 @@ try{
 		$category_id,
 		$program_id,
 		0,		// 自動録画
-		$mode	// 録画モード
+		$mode,	// 録画モード
+		$dir_id
 	);
 }
 catch( Exception $e ) {
