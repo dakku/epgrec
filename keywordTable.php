@@ -18,9 +18,10 @@ if( isset($_POST["add_keyword"]) ) {
 			$rec->channel_id = $_POST['k_station'];
 			$rec->use_regexp = $_POST['k_use_regexp'];
 			$rec->mode = $_POST['record_mode'];
+			$rec->dir_id = $_POST['dir_id'];
 			
 			// 録画予約実行
-			$rec->reservation($rec->mode);
+			$rec->reservation($rec->mode,$rec->dir_id);
 		}
 		catch( Exception $e ) {
 			exit( $e->getMessage() );

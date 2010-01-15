@@ -252,6 +252,13 @@ a:hover{background-color:#28D;}
 	<option value="{$smarty.section.mode.index}">{$record_mode[mode].name}</option>
 	{/section}
 </select>
+ディレクトリ
+      <select name="dir_id" id="id_dir_id">
+	<option value="0" >ディレクトリ無し</option>
+      {foreach from=$dirs item=dir}
+        <option value="{$dir.id}" {$dir.selected}>{$dir.dir_name}</option>
+      {/foreach}
+      </select>
 
   <input type="submit" value="この絞り込みを自動録画キーワードに登録" />
   </form>

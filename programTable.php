@@ -136,6 +136,16 @@ try{
 		array_push( $stations, $arr );
 	}
 
+
+	$crecs = DBRecord::createRecords( DIRINFO_TBL );
+	$dirs = array();
+	foreach( $crecs as $crec ) {
+		$dir = array();
+		$dir['id'] = $crec->id;
+		$dir['dir_name'] = $crec->dir_name;
+		array_push( $dirs , $dir );
+	}
+
 	$smarty = new Smarty();
 	$smarty->assign("sitetitle","番組検索");
 	$smarty->assign("do_keyword", $do_keyword );
@@ -151,6 +161,7 @@ try{
 	$smarty->assign( "k_station", $station );
 	$smarty->assign( "k_station_name", $k_station_name );
 	$smarty->assign( "record_mode" , $RECORD_MODE );
+	$smarty->assign( "dirs" , $dirs );
 	$smarty->display("programTable.html");
 }
 catch( exception $e ) {

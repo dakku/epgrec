@@ -9,7 +9,7 @@ include_once( INSTALL_PATH . "/Settings.class.php" );
 
 class Reservation {
 	
-	public static function simple( $program_id , $autorec = 0, $mode = 0) {
+	public static function simple( $program_id , $autorec = 0, $mode = 0, $dir = 0) {
 		$settings = Settings::factory();
 		$rval = 0;
 		try {
@@ -24,7 +24,8 @@ class Reservation {
 				$prec->category_id,
 				$program_id,
 				$autorec,
-				$mode );
+				$mode,
+				$dir );
 				
 		}
 		catch( Exception $e ) {
